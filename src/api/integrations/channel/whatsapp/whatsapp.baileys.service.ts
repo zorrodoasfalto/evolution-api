@@ -1094,8 +1094,7 @@ export class BaileysStartupService extends ChannelStartupService {
                 from: received?.key?.remoteJid,
                 hasViewOnceMessage: !!received?.message?.viewOnceMessage,
                 hasViewOnceMessageV2: !!received?.message?.viewOnceMessageV2,
-                hasViewOnceMessageV2Extension: !!received?.message?.viewOnceMessageV2Extension,
-                messageKeys: received?.message ? Object.keys(received.message) : [],
+                hasViewOnceMessageV2Extension: !!received?.message?.viewOnceMessageV2Extension
               },
               null,
               2
