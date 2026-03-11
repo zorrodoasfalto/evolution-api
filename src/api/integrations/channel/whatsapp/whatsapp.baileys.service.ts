@@ -1086,20 +1086,12 @@ export class BaileysStartupService extends ChannelStartupService {
       try {
         for (const received of messages) {
 
-          console.log(
-            '[messages.upsert]',
-            JSON.stringify(
-              {
-                id: received?.key?.id,
-                from: received?.key?.remoteJid,
-                hasViewOnceMessage: !!received?.message?.viewOnceMessage,
-                hasViewOnceMessageV2: !!received?.message?.viewOnceMessageV2,
-                hasViewOnceMessageV2Extension: !!received?.message?.viewOnceMessageV2Extension
-              },
-              null,
-              2
-            )
-          )
+          const isViewOnce =
+            !!received?.message?.viewOnceMessage ||
+            !!received?.message?.viewOnceMessageV2 ||
+            !!received?.message?.viewOnceMessageV2Extension
+
+          console.log('[viewOnce-check]', isViewOnce, received?.key?.id);
 
           // 👇 INÍCIO DO CÓDIGO INJETADO PARA VISUALIZAÇÃO ÚNICA 👇
           const unwrapped =
