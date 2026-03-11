@@ -1086,6 +1086,22 @@ export class BaileysStartupService extends ChannelStartupService {
       try {
         for (const received of messages) {
 
+          console.log(
+            '[messages.upsert]',
+            JSON.stringify(
+              {
+                id: received?.key?.id,
+                from: received?.key?.remoteJid,
+                hasViewOnceMessage: !!received?.message?.viewOnceMessage,
+                hasViewOnceMessageV2: !!received?.message?.viewOnceMessageV2,
+                hasViewOnceMessageV2Extension: !!received?.message?.viewOnceMessageV2Extension,
+                messageKeys: received?.message ? Object.keys(received.message) : [],
+              },
+              null,
+              2
+            )
+          )
+
           // 👇 INÍCIO DO CÓDIGO INJETADO PARA VISUALIZAÇÃO ÚNICA 👇
           const unwrapped =
             received.message?.viewOnceMessage?.message ||
