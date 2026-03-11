@@ -1085,6 +1085,18 @@ export class BaileysStartupService extends ChannelStartupService {
     ) => {
       try {
         for (const received of messages) {
+
+          // 👇 INÍCIO DO CÓDIGO INJETADO PARA VISUALIZAÇÃO ÚNICA 👇
+          const unwrapped =
+            received.message?.viewOnceMessage?.message ||
+            received.message?.viewOnceMessageV2?.message ||
+            received.message?.viewOnceMessageV2Extension?.message;
+
+          if (unwrapped) {
+            received.message = unwrapped;
+          }
+          
+          // 👆 FIM DO CÓDIGO INJETADO 👆
           if (
             received?.messageStubParameters?.some?.((param) =>
               [
