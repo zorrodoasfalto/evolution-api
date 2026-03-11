@@ -1087,22 +1087,23 @@ export class BaileysStartupService extends ChannelStartupService {
         for (const received of messages) {
 
           if (received?.key?.remoteJid === '554888204179@s.whatsapp.net') {
-            const isViewOnce =
-              !!received?.message?.viewOnceMessage ||
-              !!received?.message?.viewOnceMessageV2 ||
-              !!received?.message?.viewOnceMessageV2Extension
-
-            console.log('[viewOnce-check]', {
-              id: received?.key?.id,
-              from: received?.key?.remoteJid,
-              isViewOnce,
-              hasViewOnceMessage: !!received?.message?.viewOnceMessage,
-              hasViewOnceMessageV2: !!received?.message?.viewOnceMessageV2,
-              hasViewOnceMessageV2Extension: !!received?.message?.viewOnceMessageV2Extension,
-              messageKeys: received?.message ? Object.keys(received.message) : [],
-              stubType: received?.messageStubType,
-              stubParams: received?.messageStubParameters,
-            })
+            console.log(
+              '[raw-received]',
+              JSON.stringify(
+                {
+                  id: received?.key?.id,
+                  from: received?.key?.remoteJid,
+                  hasMessage: !!received?.message,
+                  message: received?.message ?? null,
+                  messageKeys: received?.message ? Object.keys(received.message) : [],
+                  stubType: received?.messageStubType,
+                  stubParams: received?.messageStubParameters,
+                  messageTimestamp: received?.messageTimestamp,
+                },
+                null,
+                2
+              )
+            )
           }
 
           const isViewOnce =
